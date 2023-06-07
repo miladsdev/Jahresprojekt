@@ -1,6 +1,17 @@
 class Game:
     def __init__(self):
-        self.board = [[' ' for _ in range(6)] for _ in range(6)]
+        #self.board = [[' ' for _ in range(6)] for _ in range(6)]
+
+        # Test: if reaching other side winns
+        self.board = [
+            ['X', ' ', 'X', ' ', 'X', ' '],
+            [' ', 'X', ' ', 'X', ' ', 'X'],
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', 'O', ' ', 'O', ' ', 'O'],
+            ['O', ' ', 'O', ' ', 'O', ' ']
+        ]
+
         self.current_player = 'X'
         self.game_over = False
 
@@ -84,12 +95,26 @@ class Game:
         return False
 
     def is_game_over(self):
+        if self.player_reached_other_side():
+            self.game_over = True
+            return True
+
         for i in range(6):
             for j in range(6):
                 if self.board[i][j] == self.current_player and (self.has_valid_move(i, j) or self.has_valid_jump(i, j)):
                     return False
         self.game_over = True
         return True
+
+    def player_reached_other_side(self):
+        if 'O' in self.board[0]:
+            self.current_player = 'O'
+            return True
+        elif 'X' in self.board[5]:
+            self.current_player = 'X'
+            return True
+
+        return False
 
     def play(self):
         self.place_initial_pieces()

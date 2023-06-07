@@ -1,6 +1,5 @@
 class Game:
     def __init__(self):
-        #self.board = [[' ' for _ in range(6)] for _ in range(6)]
 
         # Test: if reaching other side winns
         self.board = [
@@ -22,13 +21,6 @@ class Game:
             for j in range(6):
                 row += self.board[i][j] + '  '
             print(row)
-
-    def place_initial_pieces(self):
-        for i in range(2):
-            for j in range(6):
-                if (i + j) % 2 == 0:
-                    self.board[i][j] = 'X'
-                    self.board[5 - i][j] = 'O'
 
     def is_valid_move(self, start_row, start_col, end_row, end_col):
         if self.board[start_row][start_col] != self.current_player:
@@ -117,7 +109,6 @@ class Game:
         return False
 
     def play(self):
-        self.place_initial_pieces()
         while not self.game_over:
             self.print_board()
             print("It's", self.current_player, "player's turn.")

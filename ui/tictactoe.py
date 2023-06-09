@@ -1,7 +1,6 @@
 from guizero import Box, PushButton
 
 
-
 def __push_button__(button, command, x, y):
     button.update_command(None)
     command(button, x, y)

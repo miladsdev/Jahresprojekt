@@ -4,6 +4,23 @@ from ui.highscore import Highscore
 from ui.tictactoe import TicTacToe
 
 
+def __create_help_button__(master):
+    help_button = PushButton(master, text="?", align="right")
+    help_button.tk.config(width=5,
+                          height=1,
+                          borderwidth=0,
+                          relief="raised",
+                          activeforeground='darkgray',
+                          activebackground='green',
+                          highlightthickness=0,
+                          # highlightcolor="blue",
+                          bg='blue',
+                          fg='orange',
+                          cursor="hand2"
+                          )
+    return help_button
+
+
 class GameWindow:
 
     def __init__(self,
@@ -35,11 +52,23 @@ class GameWindow:
         if self.__initial_state__ is not None:
             return
         if self.__game_mode__ == "dame":
-            print("dame_state")
-            # TODO: Set state to dame
+            self.__initial_state__ = [
+                ['X', ' ', 'X', ' ', 'X', ' '],
+                [' ', 'X', ' ', 'X', ' ', 'X'],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', 'O', ' ', 'O', ' ', 'O'],
+                ['O', ' ', 'O', ' ', 'O', ' ']
+            ]
         elif self.__game_mode__ == "tictactoe":
-            print("tictactoe_state")
-            # TODO: Set state to tictactoe
+            self.__initial_state__ = [
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' ']
+            ]
         else:
             print("Invalid game_mode")
 
@@ -53,8 +82,13 @@ class GameWindow:
         self.__highscore_list__ = highscore_list
 
     def create_window(self):
-        # TODO: Check for game mode and change window title
-        self.__window_title__ = "Tic Tac Toe"
+        if self.__game_mode__ == "tictactoe":
+            self.__window_title__ = "Tic Tac Toe"
+        elif self.__game_mode__ == "dame":
+            self.__window_title__ = "Dame"
+        else:
+            print("GameWindow.create_window: Invalid game mode")
+            return
 
         app = App(title="Tic Tac Toe", height=800, width=500)
         app.bg = "#D9D9D9"
@@ -69,22 +103,15 @@ class GameWindow:
 
         highscore = Highscore(highscore_box, self.__highscore_list__)
 
-        # TODO: Change game_ui based on game_mode
-        game_ui = TicTacToe(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
+        if self.__game_mode__ == "tictactoe":
+            game_ui = TicTacToe(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
+        elif self.__game_mode__ == "dame":
+            raise NotImplemented("Dame wurde noch nicht implementiert")
+        else:
+            print("GameWindow.create_window: Invalid game mode")
+            return
 
-        help_button = PushButton(help_button_box, text="?", align="right")
-        help_button.tk.config(width=5,
-                              height=1,
-                              borderwidth=0,
-                              relief="raised",
-                              activeforeground='darkgray',
-                              activebackground='green',
-                              highlightthickness=0,
-                              # highlightcolor="blue",
-                              bg='blue',
-                              fg='orange',
-                              cursor="hand2"
-                              )
+        help_button = __create_help_button__(help_button_box)
 
         container.tk.pack_configure(expand=True)
         # help_button_box.tk.pack_configure(anchor="ne", padx=10, pady=10)

@@ -1,6 +1,7 @@
 from ui.game_window import GameWindow
 
 # Run this file to see UI
+# For now works only with tictactoe
 
 
 # (Initial) State of the board

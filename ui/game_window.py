@@ -5,19 +5,21 @@ from ui.tictactoe import TicTacToe
 
 
 def __create_help_button__(master):
-    help_button = PushButton(master, text="?", align="right")
-    help_button.tk.config(width=5,
-                          height=1,
-                          borderwidth=0,
-                          relief="raised",
-                          activeforeground='darkgray',
-                          activebackground='green',
-                          highlightthickness=0,
-                          # highlightcolor="blue",
-                          bg='blue',
-                          fg='orange',
-                          cursor="hand2"
-                          )
+    # help_button = PushButton(master, text="?", align="right")
+    # help_button.tk.config(width=5,
+    #                       height=1,
+    #                       borderwidth=0,
+    #                       relief="raised",
+    #                       activeforeground='darkgray',
+    #                       activebackground='green',
+    #                       highlightthickness=0,
+    #                       # highlightcolor="blue",
+    #                       bg='blue',
+    #                       fg='orange',
+    #                       cursor="hand2"
+    #                       )
+    help_button = PushButton(master, text="?", align="right", image="assets/images/help.png", width=30, height=30)
+    help_button.tk.config(relief="flat", cursor="hand2")
     return help_button
 
 

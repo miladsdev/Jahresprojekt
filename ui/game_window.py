@@ -1,26 +1,7 @@
-from guizero import PushButton, Box, App
+from guizero import PushButton, Box, App, info
 
 from ui.highscore import Highscore
 from ui.tictactoe import TicTacToe
-
-
-def __create_help_button__(master):
-    # help_button = PushButton(master, text="?", align="right")
-    # help_button.tk.config(width=5,
-    #                       height=1,
-    #                       borderwidth=0,
-    #                       relief="raised",
-    #                       activeforeground='darkgray',
-    #                       activebackground='green',
-    #                       highlightthickness=0,
-    #                       # highlightcolor="blue",
-    #                       bg='blue',
-    #                       fg='orange',
-    #                       cursor="hand2"
-    #                       )
-    help_button = PushButton(master, text="?", align="right", image="assets/images/help.png", width=30, height=30)
-    help_button.tk.config(relief="flat", cursor="hand2")
-    return help_button
 
 
 class GameWindow:
@@ -83,6 +64,32 @@ class GameWindow:
     def set_highscore_list(self, highscore_list):
         self.__highscore_list__ = highscore_list
 
+    def __create_help_button__(self, master):
+        help_button = PushButton(master, text="?", align="right", image="assets/images/help.png", width=30, height=30,
+                                 command=self.__command_help_button__)
+        help_button.tk.config(relief="flat", cursor="hand2")
+        return help_button
+
+    def __command_help_button__(self):
+        tictactoe_rules = "- Jeder Spieler kann einen Stein pro Zug legen \n- Die Steine können überall auf dem " \
+                          "Spielfeld gelegt werden \n- Gewonnen hat, wer zuerst 4 Steine vertikal, horizontal oder " \
+                          "diagonal in einer Reihe hat \n- Sind alle Felder belegt bevor es einen Gewinner gab ist es " \
+                          "Unentschieden"
+        dame_rules = "- Jeder Spieler hat 8 steine\n- Die Steine dürfen nur auf dunklen Feldern liegen\n- Am Start " \
+                     "liegen die Steine auf den ersten zwei Reihen des Spielfelds\n- Die Steine sind nur diagonal zu " \
+                     "Bewegen\n- Gegnerische Steine schlägt man durch überspringen, wenn das Feld dahinter frei " \
+                     "ist\n- Ein weiterer Stein kann übersprungen werden, sollte das Feld dahinter frei sein\n- " \
+                     "Übersprungene Steine werden vom Spielfeld genommen\n- Eigene Steine sind nicht überspringbar\n- " \
+                     "Gewonnen hat, wer einen Stein auf der gegnerischen Startlinie platziert\n- Verloren hat, " \
+                     "wer keine Steine oder mögliche Züge mehr hat"
+        if self.__game_mode__ == "tictactoe":
+            rules = tictactoe_rules
+        elif self.__game_mode__ == "dame":
+            rules = dame_rules
+        else:
+            rules = "There is no such game mode"
+        info("Rules", rules)
+
     def create_window(self):
         if self.__game_mode__ == "tictactoe":
             self.__window_title__ = "Tic Tac Toe"
@@ -113,9 +120,8 @@ class GameWindow:
             print("GameWindow.create_window: Invalid game mode")
             return
 
-        help_button = __create_help_button__(help_button_box)
+        help_button = self.__create_help_button__(help_button_box)
 
         container.tk.pack_configure(expand=True)
-        # help_button_box.tk.pack_configure(anchor="ne", padx=10, pady=10)
 
         app.display()

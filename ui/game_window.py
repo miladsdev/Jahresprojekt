@@ -99,7 +99,7 @@ class GameWindow:
             print("GameWindow.create_window: Invalid game mode")
             return
 
-        app = App(title="Tic Tac Toe", height=800, width=500)
+        app = App(title="Tic Tac Toe", height=600, width=500)
         app.bg = "#D9D9D9"
 
         header = Box(app, align="top", width="fill")

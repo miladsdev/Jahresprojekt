@@ -1,19 +1,15 @@
 from guizero import Box, PushButton
 
 
-
 def __push_button__(button, command, x, y):
     button.update_command(None)
     command(button, x, y)
 
 
 def __customize_button__(widget):
-    widget.tk.config(borderwidth=0,
-                     relief="raised",
-                     # For the click effect
-                     # activebackground="yellow",
-                     # activeforeground="#000000",
-                     cursor="hand2")
+    widget.tk.config(
+        relief="flat",
+        cursor="hand2")
 
 
 class TicTacToe:

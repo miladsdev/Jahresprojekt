@@ -35,5 +35,6 @@ highscore_list = ["Hasipupsi", "Peter Hans", "Elon Musk", "Beyoncé", "Hasipupsi
 
 game_window = GameWindow(game_mode="tictactoe",
                          command_button_pushed=push_button,
-                         highscore_list=highscore_list)
+                         highscore_list=highscore_list
+                         )
 game_window.create_window()

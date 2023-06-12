@@ -1,4 +1,4 @@
-from guizero import PushButton, Box, App
+from guizero import PushButton, Box, App, info
 
 from ui.highscore import Highscore
 from ui.tictactoe import TicTacToe
@@ -35,11 +35,23 @@ class GameWindow:
         if self.__initial_state__ is not None:
             return
         if self.__game_mode__ == "dame":
-            print("dame_state")
-            # TODO: Set state to dame
+            self.__initial_state__ = [
+                ['X', ' ', 'X', ' ', 'X', ' '],
+                [' ', 'X', ' ', 'X', ' ', 'X'],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', 'O', ' ', 'O', ' ', 'O'],
+                ['O', ' ', 'O', ' ', 'O', ' ']
+            ]
         elif self.__game_mode__ == "tictactoe":
-            print("tictactoe_state")
-            # TODO: Set state to tictactoe
+            self.__initial_state__ = [
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' '],
+                [' ', ' ', ' ', ' ', ' ', ' ']
+            ]
         else:
             print("Invalid game_mode")
 
@@ -52,11 +64,42 @@ class GameWindow:
     def set_highscore_list(self, highscore_list):
         self.__highscore_list__ = highscore_list
 
-    def create_window(self):
-        # TODO: Check for game mode and change window title
-        self.__window_title__ = "Tic Tac Toe"
+    def __create_help_button__(self, master):
+        help_button = PushButton(master, text="?", align="right", image="assets/images/help.png", width=30, height=30,
+                                 command=self.__command_help_button__)
+        help_button.tk.config(relief="flat", cursor="hand2")
+        return help_button
 
-        app = App(title="Tic Tac Toe", height=800, width=500)
+    def __command_help_button__(self):
+        tictactoe_rules = "- Jeder Spieler kann einen Stein pro Zug legen \n- Die Steine können überall auf dem " \
+                          "Spielfeld gelegt werden \n- Gewonnen hat, wer zuerst 4 Steine vertikal, horizontal oder " \
+                          "diagonal in einer Reihe hat \n- Sind alle Felder belegt bevor es einen Gewinner gab ist es " \
+                          "Unentschieden"
+        dame_rules = "- Jeder Spieler hat 8 steine\n- Die Steine dürfen nur auf dunklen Feldern liegen\n- Am Start " \
+                     "liegen die Steine auf den ersten zwei Reihen des Spielfelds\n- Die Steine sind nur diagonal zu " \
+                     "Bewegen\n- Gegnerische Steine schlägt man durch überspringen, wenn das Feld dahinter frei " \
+                     "ist\n- Ein weiterer Stein kann übersprungen werden, sollte das Feld dahinter frei sein\n- " \
+                     "Übersprungene Steine werden vom Spielfeld genommen\n- Eigene Steine sind nicht überspringbar\n- " \
+                     "Gewonnen hat, wer einen Stein auf der gegnerischen Startlinie platziert\n- Verloren hat, " \
+                     "wer keine Steine oder mögliche Züge mehr hat"
+        if self.__game_mode__ == "tictactoe":
+            rules = tictactoe_rules
+        elif self.__game_mode__ == "dame":
+            rules = dame_rules
+        else:
+            rules = "There is no such game mode"
+        info("Rules", rules)
+
+    def create_window(self):
+        if self.__game_mode__ == "tictactoe":
+            self.__window_title__ = "Tic Tac Toe"
+        elif self.__game_mode__ == "dame":
+            self.__window_title__ = "Dame"
+        else:
+            print("GameWindow.create_window: Invalid game mode")
+            return
+
+        app = App(title="Tic Tac Toe", height=600, width=500)
         app.bg = "#D9D9D9"
 
         header = Box(app, align="top", width="fill")
@@ -69,24 +112,16 @@ class GameWindow:
 
         highscore = Highscore(highscore_box, self.__highscore_list__)
 
-        # TODO: Change game_ui based on game_mode
-        game_ui = TicTacToe(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
+        if self.__game_mode__ == "tictactoe":
+            game_ui = TicTacToe(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
+        elif self.__game_mode__ == "dame":
+            raise NotImplemented("Dame wurde noch nicht implementiert")
+        else:
+            print("GameWindow.create_window: Invalid game mode")
+            return
 
-        help_button = PushButton(help_button_box, text="?", align="right")
-        help_button.tk.config(width=5,
-                              height=1,
-                              borderwidth=0,
-                              relief="raised",
-                              activeforeground='darkgray',
-                              activebackground='green',
-                              highlightthickness=0,
-                              # highlightcolor="blue",
-                              bg='blue',
-                              fg='orange',
-                              cursor="hand2"
-                              )
+        help_button = self.__create_help_button__(help_button_box)
 
         container.tk.pack_configure(expand=True)
-        # help_button_box.tk.pack_configure(anchor="ne", padx=10, pady=10)
 
         app.display()

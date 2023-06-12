@@ -66,24 +66,24 @@ class Game:
             return False
 
     def has_valid_move(self, row, col):
-        if self.is_valid_move(row, col, row - 1, col - 1):
+        if row - 1 >= 0 and col - 1 >= 0 and self.is_valid_move(row, col, row - 1, col - 1):
             return True
-        if self.is_valid_move(row, col, row - 1, col + 1):
+        if row - 1 >= 0 and col + 1 <= 5 and self.is_valid_move(row, col, row - 1, col + 1):
             return True
-        if self.is_valid_move(row, col, row + 1, col - 1):
+        if row + 1 <= 5 and col - 1 >= 0 and self.is_valid_move(row, col, row + 1, col - 1):
             return True
-        if self.is_valid_move(row, col, row + 1, col + 1):
+        if row + 1 <= 5 and col + 1 <= 5 and self.is_valid_move(row, col, row + 1, col + 1):
             return True
         return False
 
     def has_valid_jump(self, row, col):
-        if self.is_valid_jump(row, col, row - 2, col - 2):
+        if row - 2 >= 0 and col - 2 >= 0 and self.is_valid_jump(row, col, row - 2, col - 2):
             return True
-        if self.is_valid_jump(row, col, row - 2, col + 2):
+        if row - 2 >= 0 and col + 2 <= 5 and self.is_valid_jump(row, col, row - 2, col + 2):
             return True
-        if self.is_valid_jump(row, col, row + 2, col - 2):
+        if row + 2 <= 5 and col - 2 >= 0 and self.is_valid_jump(row, col, row + 2, col - 2):
             return True
-        if self.is_valid_jump(row, col, row + 2, col + 2):
+        if row + 2 <= 5 and col + 2 <= 5 and self.is_valid_jump(row, col, row + 2, col + 2):
             return True
         return False
 

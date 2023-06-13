@@ -16,8 +16,8 @@ class DameUI(BoardGame):
         self.__selected_from_position__ = None
         self.__selected_to_position__ = None
 
-    def __push_button__(self, button, command, x, y):
-        if ((x+y) % 2) == 1:
+    def __push_button__(self, button, command, x, y, ai_move):
+        if ((x + y) % 2) == 1:
             return
         if self.__selected_from_position__ is None:
             button.bg = "lightblue"
@@ -42,3 +42,7 @@ class DameUI(BoardGame):
                 self.__selected_from_position__.height = 50
                 self.__selected_to_position__ = None
                 self.__selected_from_position__ = None
+
+    def ai_move(self, x, y):
+        # TODO: Implement AI move visualization
+        pass

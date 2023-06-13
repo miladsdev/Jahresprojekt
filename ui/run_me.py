@@ -14,26 +14,19 @@ board = [
     [' ', ' ', ' ', ' ', ' ', ' ']
 ]
 
-turn = "X"
-
 
 # Dummy funktion on button click
-def push_button(pushed_button, x, y):
-    global turn
-    pushed_button.text = turn
+def push_button(x, y, ai_move):
     print(x, y)
-    if turn == "X":
-        pushed_button.image = "assets/images/red.png"
-        turn = "O"
-    else:
-        pushed_button.image = "assets/images/yellow.png"
-        turn = "X"
+    ai_move(x+1, y+1)
+
+    return True
 
 
 # List fetched from database
-highscore_list = ["Hasipupsi", "Peter Hans", "Elon Musk"]
+highscore_list = ["Hasipupsi", "Peter Hans", "Elon Musk", "Beyoncé", "Hasipupsi", "Peter Hans", "Elon Musk", "Beyoncé"]
 
-game_window = GameWindow(game_mode="dame",
+game_window = GameWindow(game_mode="tictactoe",
                          command_button_pushed=push_button,
                          highscore_list=highscore_list,
                          # initial_state=board

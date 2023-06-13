@@ -31,6 +31,7 @@ class GameWindow:
         self.__initial_state__ = initial_state
         self.__command_button_pushed__ = command_button_pushed
         self.__highscore_list__ = highscore_list
+        self.__game_ui__ = None
 
     def __set_initial_state__(self):
         if self.__initial_state__ is not None:
@@ -114,9 +115,9 @@ class GameWindow:
         highscore = Highscore(highscore_box, self.__highscore_list__)
 
         if self.__game_mode__ == "tictactoe":
-            game_ui = TicTacToe(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
+            self.__game_ui__ = TicTacToe(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
         elif self.__game_mode__ == "dame":
-            game_ui = DameUI(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
+            self.__game_ui__ = DameUI(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
         else:
             print("GameWindow.create_window: Invalid game mode")
             return

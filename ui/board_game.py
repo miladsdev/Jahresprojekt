@@ -9,7 +9,10 @@ def __customize_button__(widget):
 
 class BoardGame:
 
-    def __push_button__(self, button, command, x, y):
+    def __push_button__(self, button, command, x, y, ai_move):
+        pass
+
+    def ai_move(self, x, y):
         pass
 
     def __init__(self,
@@ -38,7 +41,7 @@ class BoardGame:
     def __create_button__(self, master, y, x, cell):
         button_box = Box(master, height=50, width=50, grid=[y, x])
         button = PushButton(button_box, text=' ', height=50, width=50, pady=0, padx=0)
-        button.update_command(self.__push_button__, [button, self.on_button_push, x, y])
+        button.update_command(self.__push_button__, [button, self.on_button_push, x, y, self.ai_move])
         __customize_button__(button)
         button.font = "Arial"
         button.text_size = "18"

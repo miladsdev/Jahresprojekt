@@ -22,7 +22,7 @@ class Game:
             for j in range(6):
                 row += self.board[i][j] + '  '
             print(row)
-
+# hihihii
     def is_valid_move(self, start_row, start_col, end_row, end_col):
         if self.board[start_row][start_col] != self.current_player:
             return False

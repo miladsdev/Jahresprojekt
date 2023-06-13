@@ -26,15 +26,19 @@ class DameUI(BoardGame):
             button.bg = "grey"
             self.__selected_from_position__ = None
         else:
-            self.__selected_to_position__ = button
-            self.__selected_from_position__.bg = "grey"
-            image = self.__selected_from_position__.image
-            self.__selected_to_position__.image = image
-            print(self.__selected_from_position__.image, self.__selected_to_position__.image)
-            self.__selected_from_position__.image = None
-            self.__selected_from_position__.text = " "
-            self.__selected_from_position__.width = "fill"
-            self.__selected_from_position__.height = "fill"
-            self.__selected_to_position__ = None
-            self.__selected_from_position__ = None
-        # print(x, y)
+            # TODO: Validate the move
+            is_move_valid = True
+            if is_move_valid:
+                self.__selected_to_position__ = button
+                self.__selected_from_position__.bg = "grey"
+                image = self.__selected_from_position__.image
+                self.__selected_to_position__.image = None
+                self.__selected_to_position__.image = image
+                self.__selected_to_position__.width = 50
+                self.__selected_to_position__.height = 50
+                self.__selected_from_position__.image = None
+                self.__selected_from_position__.text = " "
+                self.__selected_from_position__.width = 50
+                self.__selected_from_position__.height = 50
+                self.__selected_to_position__ = None
+                self.__selected_from_position__ = None

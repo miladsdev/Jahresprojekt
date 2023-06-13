@@ -52,6 +52,9 @@ class Game:
             self.board[end_row][end_col] = self.board[start_row][start_col]
             self.board[start_row][start_col] = ' '
             self.current_player = 'O' if self.current_player == 'X' else 'X'
+
+            print('--------------------\n', start_row, start_col, 'moved to', end_row, end_col, ':\n--------------------\n')
+
             return True
         elif self.is_valid_jump(start_row, start_col, end_row, end_col):
             mid_row = (start_row + end_row) // 2
@@ -61,6 +64,8 @@ class Game:
             self.board[mid_row][mid_col] = ' '
             if not self.has_valid_jump(end_row, end_col):
                 self.current_player = 'O' if self.current_player == 'X' else 'X'
+
+            print('--------------------\n', start_row, start_col, 'moved to', end_row, end_col, ':\n--------------------')
             return True
         else:
             return False
@@ -114,23 +119,27 @@ class Game:
         for i in range(6):
             for j in range(6):
                 if self.board[i][j] == self.current_player:
-                    if i - 1 >= 0 and j - 1 >= 0 and self.is_valid_move(i, j, i - 1, j - 1):
-                        moves.append((i, j, i - 1, j - 1))
-                    if i - 1 >= 0 and j + 1 <= 5 and self.is_valid_move(i, j, i - 1, j + 1):
-                        moves.append((i, j, i - 1, j + 1))
-                    if i + 1 <= 5 and j - 1 >= 0 and self.is_valid_move(i, j, i + 1, j - 1):
-                        moves.append((i, j, i + 1, j - 1))
-                    if i + 1 <= 5 and j + 1 <= 5 and self.is_valid_move(i, j, i + 1, j + 1):
-                        moves.append((i, j, i + 1, j + 1))
+                    if self.current_player == 'X':
+                        if i + 1 <= 5 and j - 1 >= 0 and self.is_valid_move(i, j, i + 1, j - 1):
+                            moves.append((i, j, i + 1, j - 1))
+                        if i + 1 <= 5 and j + 1 <= 5 and self.is_valid_move(i, j, i + 1, j + 1):
+                            moves.append((i, j, i + 1, j + 1))
 
-                    if i - 2 >= 0 and j - 2 >= 0 and self.is_valid_jump(i, j, i - 2, j - 2):
-                        moves.append((i, j, i - 2, j - 2))
-                    if i - 2 >= 0 and j + 2 <= 5 and self.is_valid_jump(i, j, i - 2, j + 2):
-                        moves.append((i, j, i - 2, j + 2))
-                    if i + 2 <= 5 and j - 2 >= 0 and self.is_valid_jump(i, j, i + 2, j - 2):
-                        moves.append((i, j, i + 2, j - 2))
-                    if i + 2 <= 5 and j + 2 <= 5 and self.is_valid_jump(i, j, i + 2, j + 2):
-                        moves.append((i, j, i + 2, j + 2))
+                        if i + 2 <= 5 and j - 2 >= 0 and self.is_valid_jump(i, j, i + 2, j - 2):
+                            moves.append((i, j, i + 2, j - 2))
+                        if i + 2 <= 5 and j + 2 <= 5 and self.is_valid_jump(i, j, i + 2, j + 2):
+                            moves.append((i, j, i + 2, j + 2))
+
+                    if self.current_player == 'O':
+                        if i - 1 >= 0 and j - 1 >= 0 and self.is_valid_move(i, j, i - 1, j - 1):
+                            moves.append((i, j, i - 1, j - 1))
+                        if i - 1 >= 0 and j + 1 <= 5 and self.is_valid_move(i, j, i - 1, j + 1):
+                            moves.append((i, j, i - 1, j + 1))
+
+                        if i - 2 >= 0 and j - 2 >= 0 and self.is_valid_jump(i, j, i - 2, j - 2):
+                            moves.append((i, j, i - 2, j - 2))
+                        if i - 2 >= 0 and j + 2 <= 5 and self.is_valid_jump(i, j, i - 2, j + 2):
+                            moves.append((i, j, i - 2, j + 2))
         return moves
 
     def make_best_move(self):
@@ -146,6 +155,7 @@ class Game:
 
             temp_game.make_move(move[0], move[1], move[2], move[3])
             score = temp_game.minimax(False)
+
             if score > best_score:
                 best_score = score
                 best_move = move
@@ -158,6 +168,10 @@ class Game:
                 return -1
             elif self.current_player == 'O':
                 return 1
+
+        print(self.get_possible_moves())
+        self.print_board()
+        print('\n',self.current_player + ':')
 
         if is_maximizing:
             best_score = -math.inf

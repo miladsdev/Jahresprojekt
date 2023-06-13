@@ -1,7 +1,8 @@
 from guizero import PushButton, Box, App, info
 
+from ui.dame_ui import DameUI
 from ui.highscore import Highscore
-from ui.tictactoe import TicTacToe
+from ui.tictactoe_ui import TicTacToe
 
 
 class GameWindow:
@@ -40,8 +41,8 @@ class GameWindow:
                 [' ', 'X', ' ', 'X', ' ', 'X'],
                 [' ', ' ', ' ', ' ', ' ', ' '],
                 [' ', ' ', ' ', ' ', ' ', ' '],
-                [' ', 'O', ' ', 'O', ' ', 'O'],
-                ['O', ' ', 'O', ' ', 'O', ' ']
+                ['O', ' ', 'O', ' ', 'O', ' '],
+                [' ', 'O', ' ', 'O', ' ', 'O']
             ]
         elif self.__game_mode__ == "tictactoe":
             self.__initial_state__ = [
@@ -115,7 +116,7 @@ class GameWindow:
         if self.__game_mode__ == "tictactoe":
             game_ui = TicTacToe(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
         elif self.__game_mode__ == "dame":
-            raise NotImplemented("Dame wurde noch nicht implementiert")
+            game_ui = DameUI(game_ui_box, self.__initial_state__, self.__command_button_pushed__)
         else:
             print("GameWindow.create_window: Invalid game mode")
             return

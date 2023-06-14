@@ -1,6 +1,7 @@
 # Jahresprojekt1
 
 Voraussetzung: Python v3.8 oder höher
+
 Spiel starten: main.py Datei ausführen
 
 ## 1. Anmeldung und Gastzugang

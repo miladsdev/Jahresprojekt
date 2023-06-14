@@ -48,7 +48,7 @@ class DameUI(BoardGame):
             # TODO: Validate the move
             # coords = self.__button_coordinates__
             # is_move_valid = command(coords["x1"], coords["y1"], coords["x2"], coords["y2"], ai_move)
-            is_move_valid = False
+            is_move_valid = True
             if is_move_valid:
                 self.__selected_to_position__ = button
                 self.__selected_from_position__.bg = "grey"
@@ -64,7 +64,7 @@ class DameUI(BoardGame):
                 self.__selected_to_position__ = None
                 self.__selected_from_position__ = None
             else:
-                info(title="Invalid move", text="Das kannst du nicht machen!")
+                info(master=self.master, title="Invalid move", text="Das kannst du nicht machen!")
 
     def ai_move(self, x, y):
         # TODO: Implement AI move visualization

@@ -1,4 +1,4 @@
-from guizero import PushButton, Box, App, info
+from guizero import PushButton, Box, App, info, Window
 
 from ui.dame_ui import DameUI
 from ui.highscore import Highscore
@@ -8,6 +8,7 @@ from ui.tictactoe_ui import TicTacToe
 class GameWindow:
 
     def __init__(self,
+                 master,
                  game_mode,
                  initial_state=None,
                  command_button_pushed=None,
@@ -26,6 +27,7 @@ class GameWindow:
                     :param List highscore_list:
                         List of the highscore String names to display. [0] = 1st place, (max) [9] = 10th place
                     """
+        self.__master__ = master
         self.__window_title__ = None
         self.__game_mode__ = game_mode
         self.__initial_state__ = initial_state
@@ -101,7 +103,7 @@ class GameWindow:
             print("GameWindow.create_window: Invalid game mode")
             return
 
-        app = App(title="Tic Tac Toe", height=600, width=500)
+        app = Window(self.__master__, title="Tic Tac Toe", height=600, width=500)
         app.bg = "#D9D9D9"
 
         header = Box(app, align="top", width="fill")
@@ -126,4 +128,5 @@ class GameWindow:
 
         container.tk.pack_configure(expand=True)
 
-        app.display()
+        app.show(wait=True)
+        # app.display()

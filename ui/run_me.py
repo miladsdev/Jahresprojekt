@@ -26,7 +26,7 @@ def push_button(x, y, ai_move):
 # List fetched from database
 highscore_list = ["Hasipupsi", "Peter Hans", "Elon Musk", "Beyoncé", "Hasipupsi", "Peter Hans", "Elon Musk", "Beyoncé"]
 
-game_window = GameWindow(game_mode="tictactoe",
+game_window = GameWindow(game_mode="dame",
                          command_button_pushed=push_button,
                          highscore_list=highscore_list,
                          # initial_state=board

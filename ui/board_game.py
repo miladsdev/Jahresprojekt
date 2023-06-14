@@ -1,3 +1,5 @@
+import os
+
 from guizero import Box, PushButton
 
 
@@ -48,9 +50,9 @@ class BoardGame:
         button.text_color = "blue"
         button.text = " "
         if cell == "X":
-            button.image = "assets/images/red.png"
+            button.image = os.path.abspath("ui/assets/images/red.png")
         elif cell == "O":
-            button.image = "assets/images/yellow.png"
+            button.image = os.path.abspath("ui/assets/images/yellow.png")
 
         if x % 2 == 0 and y % 2 == 0:
             button.bg = "grey"

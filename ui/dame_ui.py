@@ -46,9 +46,10 @@ class DameUI(BoardGame):
             self.__button_coordinates__["x2"] = x
             self.__button_coordinates__["y2"] = y
             # TODO: Validate the move
-            # coords = self.__button_coordinates__
-            # is_move_valid = command(coords["x1"], coords["y1"], coords["x2"], coords["y2"], ai_move)
-            is_move_valid = True
+            coords = self.__button_coordinates__
+            is_move_valid = command(coords["x1"], coords["y1"], coords["x2"], coords["y2"]
+                                    # , ai_move
+                                    )
             if is_move_valid:
                 self.__selected_to_position__ = button
                 self.__selected_from_position__.bg = "grey"

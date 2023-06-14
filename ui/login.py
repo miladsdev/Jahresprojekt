@@ -17,15 +17,19 @@ class Login:
         self.__password__ = TextBox(self.box, hide_text=True)
         PushButton(self.box, text="Login", command=self.__perform_login__,
                    args=[self.__username__, self.__password__])
-        PushButton(self.box, text="Zurück", command=self.go_back)
+        PushButton(self.box, text="Zurück", command=self.go_back, args=[self.__username__, self.__password__])
         self.box.hide()
 
     def __perform_login__(self, username_field, password_field):
         username = username_field.value
         password = password_field.value
+        username_field.clear()
+        password_field.clear()
         self.login_command(username, password)
 
-    def go_back(self):
+    def go_back(self, username, password):
+        username.clear()
+        password.clear()
         self.back_command()
         self.hide_login()
 

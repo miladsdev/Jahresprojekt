@@ -1,5 +1,5 @@
 from guizero import PushButton, Box, App, info, Window
-
+import os
 from ui.dame_ui import DameUI
 from ui.highscore import Highscore
 from ui.tictactoe_ui import TicTacToe
@@ -27,6 +27,7 @@ class GameWindow:
                     :param List highscore_list:
                         List of the highscore String names to display. [0] = 1st place, (max) [9] = 10th place
                     """
+        self.app = None
         self.__master__ = master
         self.__window_title__ = None
         self.__game_mode__ = game_mode
@@ -69,7 +70,7 @@ class GameWindow:
         self.__highscore_list__ = highscore_list
 
     def __create_help_button__(self, master):
-        help_button = PushButton(master, text="?", align="right", image="assets/images/help.png", width=30, height=30,
+        help_button = PushButton(master, text="?", align="right", image=os.path.abspath("ui/assets/images/help.png"), width=30, height=30,
                                  command=self.__command_help_button__)
         help_button.tk.config(relief="flat", cursor="hand2")
         return help_button
@@ -92,7 +93,7 @@ class GameWindow:
             rules = dame_rules
         else:
             rules = "There is no such game mode"
-        info("Rules", rules)
+        info(master=self.app, title="Rules", text=rules)
 
     def create_window(self):
         if self.__game_mode__ == "tictactoe":
@@ -103,14 +104,14 @@ class GameWindow:
             print("GameWindow.create_window: Invalid game mode")
             return
 
-        app = Window(self.__master__, title="Tic Tac Toe", height=600, width=500)
-        app.bg = "#D9D9D9"
+        self.app = Window(self.__master__, title="Tic Tac Toe", height=600, width=500)
+        self.app.bg = "#D9D9D9"
 
-        header = Box(app, align="top", width="fill")
+        header = Box(self.app, align="top", width="fill")
         header.tk.configure(padx=10, pady=10)
         help_button_box = Box(header, width="fill")
 
-        container = Box(app, layout="grid", height="fill")
+        container = Box(self.app, layout="grid", height="fill")
         highscore_box = Box(header)
         game_ui_box = Box(container, grid=[1, 1])
 
@@ -128,5 +129,5 @@ class GameWindow:
 
         container.tk.pack_configure(expand=True)
 
-        app.show(wait=True)
+        self.app.show(wait=True)
         # app.display()

@@ -1,5 +1,7 @@
-from guizero import App, Box, PushButton, Text
+from guizero import App, Box, PushButton, Text, warn
 
+from dame.dame import Game
+from database.db import Datenbank
 from ui.game_window import GameWindow
 from ui.login import Login
 
@@ -32,6 +34,9 @@ class GameMode:
         self.box.hide()
 
 
+db = Datenbank()
+
+
 def back_to_home_screen():
     home_screen.show()
 
@@ -46,12 +51,26 @@ def show_game_mode():
     game_mode.show_game_modes()
 
 
+user = None
+
+
 def perform_login(username, password):
-    print(username, password)
+    is_account_valid = db.login(username, password)
+    global user
+    if is_account_valid:
+        user = username
+        login_screen.hide_login()
+        game_mode.show_game_modes()
+    else:
+        user = None
+        warn(title="Fehler", text="Falsche Anmeldedaten")
 
 
-def button_pushed(*args):
-    pass
+def button_pushed(x1, y1, x2, y2):
+    return dame.make_move(x1, y1, x2, y2)
+
+
+dame = Game()
 
 
 def start_game(game_mode):

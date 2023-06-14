@@ -7,8 +7,8 @@ class Game:
             [' ', 'X', ' ', 'X', ' ', 'X'],
             [' ', ' ', ' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' ', ' ', ' '],
-            [' ', 'O', ' ', 'O', ' ', 'O'],
-            ['O', ' ', 'O', ' ', 'O', ' ']
+            ['O', ' ', 'O', ' ', 'O', ' '],
+            [' ', 'O', ' ', 'O', ' ', 'O']
         ]
 
         self.current_player = 'X'
@@ -122,5 +122,5 @@ class Game:
             else:
                 print("Invalid move. Try again.")
 
-game = Game()
-game.play()
+# game = Game()
+# game.play()

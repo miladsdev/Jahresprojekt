@@ -1,5 +1,8 @@
 # Jahresprojekt1
 
+Voraussetzung: Python v3.8 oder höher
+Spiel starten: main.py Datei ausführen
+
 ## 1. Anmeldung und Gastzugang
    Beim Start der App haben Sie die Möglichkeit, sich entweder einzuloggen oder als Gast fortzufahren.
 
